@@ -1,0 +1,58 @@
+&pinctrl_0 {
+	gpio_int_init: gpio_int_init {
+		GPIO_CONFIG_PUD(AP,gpc10,gpc10,0, FUNC_INPUT_WAKEUP, PULL_NONE);
+	};
+
+	gpio_int_sleep: gpio_int_sleep {
+		GPIO_CONFIG_PUD(AP,gpc10,gpc10,0, FUNC_INPUT, PULL_DOWN);
+	};
+};
+
+
+&hsi2c_28 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "ok";
+	clock-frequency = <400000>;
+	samsung,reset-before-trans;
+	tsp_synaptics: touchscreen@4b {
+		status = "ok";
+		compatible = "synaptics,synaptics_ts";
+		reg = <0x4b>;
+		pinctrl-names = "on_state", "off_state";
+		pinctrl-0 = <&gpio_int_init>;
+		pinctrl-1 = <&gpio_int_sleep>;
+		tsp_io_ldo-supply = <&fixed_regulator2>;
+		tsp_avdd_ldo-supply = <&fixed_regulator1>;
+		sec,irq_gpio = <SEC_GPIO_REF(AP,gpc10,gpc10,0) 0>;
+
+		sec,max_coords = <4096 4096>; /* x y */
+	};
+};
+
+
+/* /home/dpi/qb5_8814/workspace/P4_1716/android/kernel/kmodule/input/sec_input_2023/touchscreen/synaptics/common_u/dts_i2c/input-lsi-tsp-synaptics.a55x.dtsi */
+&tsp_synaptics {
+	sec,tclm_level = <0xFF>;
+	sec,afe_base = <0x0000>;
+	sec,area-size = <133 266 341>; /* indicator: 24dp navigator:48dp edge:60px dpi=320 */
+	sec,max_coords = <4096 4096>; /* x y */
+	enable_settings_aot;
+	support_dex_mode;
+	//support_mis_calibration_test;
+	support_ear_detect_mode;
+	//sync-reportrate-120;
+	support_refresh_rate_mode;
+	support_open_short_test;
+	support_fod;
+	support_fod_lp_mode;
+	support_vrr;
+	// sec,firmware_name = "s3907_a54x.bin";
+	sec,bringup = <1>;
+	sec,enable_sysinput_enabled;
+	support_vbus_notifier;
+	synaptics,support_immediate_cmd;
+#if !defined(CONFIG_SEC_FACTORY)
+	synaptics,do_set_up_report;
+#endif
+};
