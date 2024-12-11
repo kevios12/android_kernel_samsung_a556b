@@ -39,7 +39,7 @@ extern void *memcpy_align_4(void *dest, const void *src, unsigned int n);
 #define EXYNOS_SPARE_CTRL__DATA7					(0x3c30)
 #endif
 
-extern struct acpm_framework *acpm_initdata;
+extern volatile struct acpm_framework *acpm_initdata;
 extern void __iomem *acpm_srambase;
 extern void exynos_acpm_timer_clear(void);
 extern u32 exynos_get_peri_timer_icvra(void);

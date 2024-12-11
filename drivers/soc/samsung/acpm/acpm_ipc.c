@@ -1020,7 +1020,7 @@ static struct notifier_block nb_panic_block = {
 int acpm_ipc_probe(struct platform_device *pdev)
 {
 	struct acpm_ipc_info *ipc;
-	struct acpm_framework *acpm_initdata;
+	volatile struct acpm_framework *acpm_initdata;
 	const struct acpm_ipc_drvdata *drvdata;
 	struct device_node *node = pdev->dev.of_node;
 	struct resource *res;
