@@ -10,3 +10,5 @@ obj-$(CONFIG_EXYNOS_ACPM_S2D)	+= acpm_s2d.o
 obj-$(CONFIG_EXYNOS_ACPM_PLGDBG)	+= plugin_dbg.o
 exynos_acpm-$(CONFIG_EXYNOS_ESCA)    += esca.o
 obj-$(CONFIG_EXYNOS_FLEXPMU_DBG)            += flexpmu_dbg.o
+
+CFLAGS_acpm.o := $(DISABLE_LTO)
