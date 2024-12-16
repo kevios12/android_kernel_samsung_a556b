@@ -1587,7 +1587,7 @@ static int register_pm_qos_misc(struct exynos_pm_qos_object *qos, struct dentry 
 			    &exynos_pm_qos_debug_fops);
 
 	qos->kobj_attr.attr.name = qos->name;
-	qos->kobj_attr.attr.mode = 0444;
+	qos->kobj_attr.attr.mode = 0666;
 	qos->kobj_attr.show = exynos_pm_qos_sysfs_show;
 
 	// Create SYSFS file node to show PM QoS information
@@ -1596,7 +1596,7 @@ static int register_pm_qos_misc(struct exynos_pm_qos_object *qos, struct dentry 
 
 	snprintf(qos->bin_attr_name, sizeof(qos->bin_attr_name), "%s_log", qos->name);
 	qos->bin_attr.attr.name = qos->bin_attr_name;
-	qos->bin_attr.attr.mode = 0444;
+	qos->bin_attr.attr.mode = 0666;
 	qos->bin_attr.read = exynos_pm_qos_log_show;
 
 	if (sysfs_create_bin_file(kobj, &qos->bin_attr) < 0)
